@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24157a1583786db44a0549ec0585bb68, type: 3}
+  m_Name: Sword
+  m_EditorClassIdentifier: 
+  m_lightComboConfig:
+  - {fileID: 11400000, guid: edfb6ce137e300449b2742061d9b9f55, type: 2}
+  - {fileID: 11400000, guid: dd9dcc5faf87a084a9cc2f838ec64f0c, type: 2}
+  m_heavyComboConfig:
+  - {fileID: 11400000, guid: c7d6e1024fada044cb546ed335ac4ff3, type: 2}
+  - {fileID: 11400000, guid: f9cc2ba65125cce47ae174734fdd3312, type: 2}
+  - {fileID: 11400000, guid: 50ff27100e842184e8d0477caa43c654, type: 2}
+  inputActions: {fileID: -944628639613478452, guid: 4419d82f33d36e848b3ed5af4c8da37e,
+    type: 3}
