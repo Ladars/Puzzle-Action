@@ -5242,7 +5242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2883482661238640249
 Transform:
   m_ObjectHideFlags: 0
@@ -5665,6 +5665,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1024
+  currentTarget: {fileID: 0}
   attackMoveMult: 3
   detectionCenter: {fileID: 6267626853707620019}
   detectionRang: 1
@@ -5747,7 +5748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8481891701312579406
 Transform:
   m_ObjectHideFlags: 0
@@ -7414,7 +7415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82ada223777cee42bcc3e06bda8b50d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterGravity: -9.8
+  characterGravity: -20
   characterCurrentMoveSpeed: 0
   groundDetectionRang: 0.35
   groundDetectionOffset: -0.26
@@ -7430,7 +7431,7 @@ MonoBehaviour:
   crouchCameraLook: {fileID: 6267626853707620019}
   rotationLerpTime: 0.1
   moveDirctionSlerpTime: 15
-  walkSpeed: 5
+  walkSpeed: 3
   runSpeed: 10
   crouchMoveSpeed: 1.5
   animationMoveSpeedMult: 0.2
@@ -8627,7 +8628,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8652695605523685004}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8673,10 +8674,11 @@ MonoBehaviour:
   attackDetectionRang: 1
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 0
+  currentTarget: {fileID: 0}
   attackMoveMult: 3
   detectionCenter: {fileID: 6267626853707620019}
-  detectionRang: 1
+  detectionRang: 4
 --- !u!114 &3961952305625886676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8690,7 +8692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hipGS: {fileID: 6752619423543400057}
-  handGS: {fileID: 0}
+  handGS: {fileID: 2883482661238640249}
   handKatana: {fileID: 8481891701312579406}
 --- !u!1 &8660363884271695183
 GameObject:

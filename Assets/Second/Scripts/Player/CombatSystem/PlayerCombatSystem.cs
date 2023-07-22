@@ -7,7 +7,8 @@ namespace UGG.Combat
 {
     public class PlayerCombatSystem : CharacterCombatSystemBase
     {
-        
+        [SerializeField] private Transform currentTarget;
+
         //Speed
         [SerializeField, Header("攻击移动速度倍率"), Range(.1f, 10f)]
         private float attackMoveMult;
@@ -22,8 +23,13 @@ namespace UGG.Combat
         private void Update()
         {
             PlayerAttackAction();
-            DetectionTarget();
+           // DetectionTarget();
             ActionMotion();
+          //  UpdateCurrentTarget(detectionedTarget[0].transform);
+        }
+        private void LateUpdate()
+        {
+          //  OnAttackActionAutoLockON();
         }
 
         private void PlayerAttackAction()
@@ -46,7 +52,17 @@ namespace UGG.Combat
             _animator.SetBool(sWeapon, _characterInputSystem.playerRAtk);         
         }
 
-
+        private void OnAttackActionAutoLockON()
+        {
+         
+            if (CanAttackLockOn())
+            {
+                if (_animator.CheckAnimationTag("Attack") || _animator.CheckAnimationTag("GSAttack"))
+                {
+                    transform.root.rotation = transform.LockOnTarget(currentTarget, transform.root.transform, 50f);
+                }
+            }
+        }
 
 
 
@@ -80,10 +96,29 @@ namespace UGG.Combat
 
         private void DetectionTarget()
         {
-            int targetCount = Physics.OverlapSphereNonAlloc(detectionCenter.position, detectionRang, detectionedTarget,
-                enemyLayer);
-            
-            //后续功能补充
+            int targetCount = Physics.OverlapSphereNonAlloc(detectionCenter.position, detectionRang, detectionedTarget,enemyLayer);
+
+            if (targetCount >0)
+            {
+                SetCurrentTarget(detectionedTarget[0].transform);
+            }
+        }
+        private void SetCurrentTarget(Transform target)
+        {
+            if (currentTarget !=null &&currentTarget !=target)
+            {
+                currentTarget = target;
+            }
+        }
+        private void UpdateCurrentTarget(Transform target)
+        {
+            if (_animator.CheckAnimationTag("Motion"))
+            {
+                if (_characterInputSystem.playerMovement.sqrMagnitude >0)
+                {
+                    currentTarget = null;
+                }
+            }
         }
         
         #endregion

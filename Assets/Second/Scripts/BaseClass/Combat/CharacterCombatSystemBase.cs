@@ -46,18 +46,17 @@ namespace UGG.Combat
         {
 
             Collider[] attackDetectionTargets = new Collider[4];
-
             int counts = Physics.OverlapSphereNonAlloc(attackDetectionCenter.position, attackDetectionRang,
-                attackDetectionTargets, enemyLayer);
-
+                attackDetectionTargets);
+            Debug.Log(counts);
             if (counts > 0)
             {
                 for (int i = 0; i < counts; i++)
                 {
                     if (attackDetectionTargets[i].TryGetComponent(out IDamagar damagar))
                     {
-                        damagar.TakeDamager(hitName);
                         
+                        damagar.TakeDamager(hitName);
                     }
                 }
             }
@@ -72,7 +71,7 @@ namespace UGG.Combat
             if (_animator.CheckAnimationTag("GSAttack"))
             {
                 GameAssets.Instance.PlaySoundEffect(_audioSource, SoundAssetsType.hSwordWave);
-                Debug.Log("true");
+             
             }
         }
         private void OnDrawGizmos()
