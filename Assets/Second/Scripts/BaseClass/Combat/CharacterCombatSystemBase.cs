@@ -47,16 +47,15 @@ namespace UGG.Combat
 
             Collider[] attackDetectionTargets = new Collider[4];
             int counts = Physics.OverlapSphereNonAlloc(attackDetectionCenter.position, attackDetectionRang,
-                attackDetectionTargets);
-            Debug.Log(counts);
+                attackDetectionTargets,enemyLayer);
             if (counts > 0)
             {
                 for (int i = 0; i < counts; i++)
                 {
-                    if (attackDetectionTargets[i].TryGetComponent(out IDamagar damagar))
-                    {
-                        
-                        damagar.TakeDamager(hitName);
+                    if (attackDetectionTargets[i].transform.root.TryGetComponent(out IDamagar damagar))
+                    {                       
+                        damagar.TakeDamager(0,hitName,transform.root.transform);
+                        Debug.Log("hit");
                     }
                 }
             }

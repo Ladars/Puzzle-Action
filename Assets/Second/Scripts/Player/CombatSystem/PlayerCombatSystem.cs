@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UGG.Health;
 
 namespace UGG.Combat
 {
@@ -19,37 +20,66 @@ namespace UGG.Combat
 
         //缓存
         private Collider[] detectionedTarget = new Collider[1];
-        
+        //允许攻击输入
+        [SerializeField] private bool allowAttackInput;
         private void Update()
         {
             PlayerAttackAction();
-           // DetectionTarget();
+            DetectionTarget();
             ActionMotion();
-          //  UpdateCurrentTarget(detectionedTarget[0].transform);
+            UpdateCurrentTarget();
         }
         private void LateUpdate()
         {
-          //  OnAttackActionAutoLockON();
+            OnAttackActionAutoLockON();
+        }
+        private bool CanInputAttack()
+        {
+            //if (_animator.CheckCurrentTagAnimationTimeIsExceed("Attack",.27f))
+            //{
+            //    return true;
+            //}
+            //if (_animator.CheckAnimationTag("Motion"))
+            //{
+            //    return true;
+            //}
+            if (allowAttackInput)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private void PlayerAttackAction()
         {
-            if (_characterInputSystem.playerRAtk)
+            if (!allowAttackInput)
             {
-                if (_characterInputSystem.playerLAtk)
+                if (_animator.CheckCurrentTagAnimationTimeIsExceed("Motion", 0.01f) && !_animator.IsInTransition(0))
                 {
-                    _animator.SetTrigger(lAtkID);
+                    SetAllowAttackInput(true);
                 }
             }
-            else
+            if (allowAttackInput)
             {
-                if (_characterInputSystem.playerLAtk)
+                if (_characterInputSystem.playerRAtk)
                 {
-                    _animator.SetTrigger(lAtkID);
+                    if (_characterInputSystem.playerLAtk)
+                    {
+                        _animator.SetTrigger(lAtkID);
+                    }
+                }
+                else
+                {
+                    if (_characterInputSystem.playerLAtk)
+                    {
+                        _animator.SetTrigger(lAtkID);
 
+                    }
                 }
+                _animator.SetBool(sWeapon, _characterInputSystem.playerRAtk);
             }
-            _animator.SetBool(sWeapon, _characterInputSystem.playerRAtk);         
+               
         }
 
         private void OnAttackActionAutoLockON()
@@ -105,12 +135,12 @@ namespace UGG.Combat
         }
         private void SetCurrentTarget(Transform target)
         {
-            if (currentTarget !=null &&currentTarget !=target)
+            if (currentTarget ==null &&currentTarget !=target)
             {
                 currentTarget = target;
             }
         }
-        private void UpdateCurrentTarget(Transform target)
+        private void UpdateCurrentTarget()
         {
             if (_animator.CheckAnimationTag("Motion"))
             {
@@ -120,7 +150,8 @@ namespace UGG.Combat
                 }
             }
         }
-        
+        public bool GetAllowAttackInput() => allowAttackInput;
+        public void SetAllowAttackInput(bool allow) => allowAttackInput = allow;
         #endregion
     }
 }

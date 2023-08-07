@@ -39,8 +39,25 @@ public static class UnitExpandingFunction
         if (target == null) return self.rotation;
 
         Vector3 targetDirection = (target.position - self.position).normalized;
+        targetDirection.y = 0;
         Quaternion newRotation = Quaternion.LookRotation(targetDirection);
         
         return  Quaternion.Lerp(self.rotation,newRotation,lerpTime * Time.deltaTime);
+    }
+    public static  bool CheckCurrentTagAnimationTimeIsExceed(this Animator animator,string tagName,float time)
+    {
+        if (animator.CheckAnimationTag(tagName))
+        {
+            return (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > time) ? true : false;
+        }
+        return false;
+    }
+    public static bool CheckCurrentTagAnimationTimeIsLow(this Animator animator, string tagName, float time)
+    {
+        if (animator.CheckAnimationTag(tagName))
+        {
+            return (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < time) ? true : false;
+        }
+        return false;
     }
 }
