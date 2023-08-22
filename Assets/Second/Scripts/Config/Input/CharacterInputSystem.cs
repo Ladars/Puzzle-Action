@@ -24,7 +24,11 @@ public class CharacterInputSystem : MonoBehaviour
     {
         get => _inputController.PlayerInput.LAtk.triggered;
     }
-    
+    public bool playerJump
+    {
+        get => _inputController.PlayerInput.Jump.triggered;
+     }
+
     public bool playerRAtk
     {
         get => _inputController.PlayerInput.RAtk.phase==InputActionPhase.Performed;
@@ -48,8 +52,12 @@ public class CharacterInputSystem : MonoBehaviour
     {
         get => _inputController.PlayerInput.Crouch.triggered;
     }
+    public bool GSWeapon
+    {
+        get => _inputController.PlayerInput.GS.triggered;
+    }
 
-    
+    public bool Sword { get => _inputController.PlayerInput.Sword.triggered; }
     
     
     

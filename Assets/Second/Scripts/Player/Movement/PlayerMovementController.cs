@@ -1,5 +1,7 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace UGG.Move
 {
@@ -38,11 +40,17 @@ namespace UGG.Move
         [SerializeField] private Transform crouchDetectionPosition;
         [SerializeField] private Transform CameraLook;
         [SerializeField] private LayerMask crouchDetectionLayer;
-        
+
+        //Jump speed
+        [SerializeField, Header("跳跃速度")] private float jumpSpeed;
+        [SerializeField] Vector3 moveVelocity;
         //animationID
         private int crouchID = Animator.StringToHash("Crouch");
 
+        //other
+        [SerializeField] private float rollCoolTime = 2f;
 
+        
         #region 内部函数
 
         protected override void Awake()
@@ -66,7 +74,8 @@ namespace UGG.Move
             base.Update();
             
             PlayerMoveDirection();
-            UpdateRollAnimation();
+            //UpdateRollAnimation();
+            Jump();
         }
 
         private void LateUpdate()
@@ -74,7 +83,7 @@ namespace UGG.Move
             CharacterCrouchControl();
             UpdateMotionAnimation();
             UpdateCrouchAnimation();
-            UpdateRollAnimation();
+           // UpdateRollAnimation();
             
         }
 
@@ -86,7 +95,7 @@ namespace UGG.Move
 
         private bool CanMoveContro()
         {
-            return isOnGround && characterAnimator.CheckAnimationTag("Motion") || characterAnimator.CheckAnimationTag("CrouchMotion");
+            return  characterAnimator.CheckAnimationTag("Motion") || characterAnimator.CheckAnimationTag("CrouchMotion");
         }
 
         private bool CanCrouch()
@@ -113,7 +122,7 @@ namespace UGG.Move
         private void PlayerMoveDirection()
         {
             
-            if (isOnGround && _inputSystem.playerMovement == Vector2.zero)
+            if ( _inputSystem.playerMovement == Vector2.zero)
                 movementDirection = Vector3.zero;
             
             if(CanMoveContro()) 
@@ -145,7 +154,23 @@ namespace UGG.Move
 
             
         }
-
+        private void Jump()
+        {
+            if (_inputSystem.playerJump)
+            {
+                moveVelocity.y = jumpSpeed;
+                characterAnimator.SetTrigger("Jump");
+                
+            }
+            characterAnimator.SetBool("IsGround",isOnGround);
+            if (moveVelocity.y>-0.5f)
+            {
+                moveVelocity.y += characterGravity * Time.deltaTime;
+            }
+  
+            control.Move(moveVelocity * Time.deltaTime);
+        }
+    
 
         private void UpdateMotionAnimation()
         {
@@ -170,23 +195,11 @@ namespace UGG.Move
             if (isOnCrouch)
             {
                 characterCurrentMoveSpeed = crouchMoveSpeed;
-            }
-            
+            }           
         }
 
-        private void UpdateRollAnimation()
-        {
-            if (_inputSystem.playerRoll)
-            {
-                characterAnimator.SetTrigger(rollID);
-            }
-            if (characterAnimator.CheckAnimationTag("Roll"))
-            {
-                CharacterMoveInterface(transform.forward, characterAnimator.GetFloat(animationMoveID) *animationMoveSpeedMult, true);
-            }
-            
-        }
         
+     
         private void CharacterCrouchControl()
         {
             if(!CanCrouch()) return;

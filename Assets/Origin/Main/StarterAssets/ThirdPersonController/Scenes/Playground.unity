@@ -285,10 +285,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _assetsList:
   - assetsName: Timer
-    count: 5
+    count: 10
     prefab:
     - {fileID: 4340437033996089198, guid: 343e8348b5eec764a9b241ee4c020822, type: 3}
-  poolObjectParent: {fileID: 0}
+  - assetsName: Blood
+    count: 10
+    prefab:
+    - {fileID: 6226294743631873981, guid: 1010c267b92be52459588c87205c2572, type: 3}
+  poolObjectParent: {fileID: 420818283}
 --- !u!1001 &497925615
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -304,7 +308,7 @@ PrefabInstance:
     - target: {fileID: 6541251313565161666, guid: 9691640d252cca94d8994b055c6c1e53,
         type: 3}
       propertyPath: distancePlayerOffset
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6541251313565161667, guid: 9691640d252cca94d8994b055c6c1e53,
         type: 3}
@@ -324,7 +328,7 @@ PrefabInstance:
     - target: {fileID: 6541251313565161667, guid: 9691640d252cca94d8994b055c6c1e53,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6541251313565161667, guid: 9691640d252cca94d8994b055c6c1e53,
         type: 3}
@@ -2062,7 +2066,7 @@ PrefabInstance:
     - target: {fileID: 8386252596634496639, guid: 4c062b4470539b4499fb986e4adec7b3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8386252596689969433, guid: 4c062b4470539b4499fb986e4adec7b3,
         type: 3}
@@ -2178,6 +2182,7 @@ MonoBehaviour:
   skills:
   - {fileID: 11400000, guid: 81cc2629b56530049bd80deb87525e69, type: 2}
   - {fileID: 11400000, guid: 69db44274688c724d901cb414f0ba055, type: 2}
+  - {fileID: 11400000, guid: 1858fa238c7eeb545acc825d0d954caa, type: 2}
 --- !u!224 &2104805546 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 597308369130767402, guid: 2f7f3dde7ae722a4aafffe20691ad702,
@@ -2397,19 +2402,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2215134391915565946, guid: 7668a7ace5286a34bb0a25d090725770,
-        type: 3}
-      propertyPath: allowAttackInput
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7197181218157189823, guid: 7668a7ace5286a34bb0a25d090725770,
         type: 3}
       propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7197181218157189823, guid: 7668a7ace5286a34bb0a25d090725770,
-        type: 3}
-      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []

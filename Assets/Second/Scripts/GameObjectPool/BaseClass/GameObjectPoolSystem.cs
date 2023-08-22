@@ -57,7 +57,7 @@ public class GameObjectPoolSystem : SingletonBase<GameObjectPoolSystem>
         return dequeueObject;
     }
 
-    public void TakeGameobject(string objectName, Vector3 position, Quaternion rotation)
+    public void TakeGameObject(string objectName, Vector3 position, Quaternion rotation)
     {
         if (!pools.ContainsKey(objectName)) return;
 
@@ -66,10 +66,10 @@ public class GameObjectPoolSystem : SingletonBase<GameObjectPoolSystem>
         dequeueObject.SetActive(true);
         dequeueObject.transform.position = position;
         dequeueObject.transform.rotation = rotation;
-        dequeueObject.GetComponent<IPool>().SpawnObject();
+      //  dequeueObject.GetComponent<IPool>().SpawnObject();
     }
 
-    public void TakeGameobject(string objectName, Vector3 position, Quaternion rotation,Transform user)
+    public void TakeGameObject(string objectName, Vector3 position, Quaternion rotation,Transform user)
     {
         if (!pools.ContainsKey(objectName)) return;
 
@@ -87,7 +87,7 @@ public class GameObjectPoolSystem : SingletonBase<GameObjectPoolSystem>
         gameObject.transform.rotation = Quaternion.identity;
         gameObject.SetActive(false);
     }
-
+   
     [System.Serializable]
     private class GameObjectAssets
     {

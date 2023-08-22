@@ -58,13 +58,9 @@ public class AICombatSystem : CharacterCombatSystemBase
     }
     private void UpdateAnimationMove()
     {
-        if (_animator.CheckAnimationTag("Roll"))
+        if (_animator.CheckAnimationTag("Roll")|| _animator.CheckAnimationTag("Attack"))
         {
             _characterMovementBase.CharacterMoveInterface(transform.root.forward,_animator.GetFloat("AnimationMove"),true);
-        }
-        if (_animator.CheckAnimationTag("Attack"))
-        {
-            _characterMovementBase.CharacterMoveInterface(transform.root.forward, _animator.GetFloat("AnimationMove"), true);
         }
     }
     public Transform GetCurrentTarget()

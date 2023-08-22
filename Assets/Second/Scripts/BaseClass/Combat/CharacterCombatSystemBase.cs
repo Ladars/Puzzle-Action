@@ -25,6 +25,8 @@ namespace UGG.Combat
         [SerializeField, Header("攻击检测")] protected Transform attackDetectionCenter;
         [SerializeField] protected float attackDetectionRang;
         [SerializeField] protected LayerMask enemyLayer;
+ 
+
 
         protected virtual void Awake()
         {
@@ -45,7 +47,7 @@ namespace UGG.Combat
         protected virtual void OnAnimationAttackEvent(string hitName)
         {
 
-            Collider[] attackDetectionTargets = new Collider[4];
+            Collider[] attackDetectionTargets = new Collider[1];
             int counts = Physics.OverlapSphereNonAlloc(attackDetectionCenter.position, attackDetectionRang,
                 attackDetectionTargets,enemyLayer);
             if (counts > 0)
@@ -55,7 +57,7 @@ namespace UGG.Combat
                     if (attackDetectionTargets[i].transform.root.TryGetComponent(out IDamagar damagar))
                     {                       
                         damagar.TakeDamager(0,hitName,transform.root.transform);
-                        Debug.Log("hit");
+                       // GameObjectPoolSystem.Instance.TakeGameObject("Blood", attackDetectionTargets[i].transform.position, attackDetectionTargets[i].transform.rotation); 
                     }
                 }
             }

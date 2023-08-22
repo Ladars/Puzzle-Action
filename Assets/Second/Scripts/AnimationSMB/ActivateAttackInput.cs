@@ -35,14 +35,14 @@ public class ActivateAttackInput : StateMachineBehaviour
     {
         //Debug.Log(currentAllowAttackTime);
         //如果当前不允许输入攻击信号再计时 当时间达到 允许输入攻击信号
-        if (combatSystem.GetAllowAttackInput())
+        if (!combatSystem.GetAllowAttackInput())
         {
             if (currentAllowAttackTime > 0)
             {
                 currentAllowAttackTime -= Time.deltaTime;
                 if (currentAllowAttackTime <= 0)
                 {
-                    combatSystem.SetAllowAttackInput(false);
+                    combatSystem.SetAllowAttackInput(true);
                 }
             }
         }
@@ -51,7 +51,7 @@ public class ActivateAttackInput : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+       // currentAllowAttackTime
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NormalAbility
   m_EditorClassIdentifier: 
   skillName: Attack01
-  skillID: 1
+  skillID: 3
   skillCDTime: 7
   skillUseDistance: 1.5
-  skillIsDone: 1
+  skillIsDone: 0

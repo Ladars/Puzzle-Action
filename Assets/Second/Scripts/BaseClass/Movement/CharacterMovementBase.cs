@@ -1,6 +1,7 @@
 ﻿using Unity.Collections;
 using UnityEngine;
-
+using System.Collections;
+using System.Collections.Generic;
 
 namespace UGG.Move
 {
@@ -31,6 +32,7 @@ namespace UGG.Move
         [SerializeField] protected LayerMask whatIsGround;
         [SerializeField,Tooltip("角色动画移动时检测障碍物的层级")] protected LayerMask whatIsObs;
         [SerializeField] protected bool isOnGround;
+        private bool canOnGround;
         
         
         //AnimationID
@@ -59,6 +61,7 @@ namespace UGG.Move
         {
             CharacterGravity();
             CheckOnGround();
+ 
         }
 
         #region 内部函数
@@ -100,9 +103,27 @@ namespace UGG.Move
         {
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundDetectionOffset, transform.position.z);
             isOnGround = Physics.CheckSphere(spherePosition, groundDetectionRang, whatIsGround, QueryTriggerInteraction.Ignore);
-            
+            if (canOnGround)
+            {
+                
+            }         
         }
+        //private void jumpListen()
+        //{
+        //    if (_inputSystem.playerJump)
+        //    {
+        //        StartCoroutine(JumpWait());
+        //    }
+          
+        //}
+        //IEnumerator JumpWait()
+        //{
+        //    canOnGround = false;
+        //   // isOnGround = false;
+        //    yield return new WaitForSeconds(0.5f);
+        //    canOnGround = true;
 
+        //}
         private void OnDrawGizmosSelected()
         {
             
