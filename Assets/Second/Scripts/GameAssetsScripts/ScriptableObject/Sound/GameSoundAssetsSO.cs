@@ -5,7 +5,8 @@ public enum SoundAssetsType
 {
     hit,
     swordWave,
-    hSwordWave
+    hSwordWave,
+    arrowShoot
 }
 
 [CreateAssetMenu(fileName = "New SoundAssets",menuName = "CreataAssets/Sound")]
@@ -38,6 +39,8 @@ public class GameSoundAssetsSO : ScriptableObject
                 return assetsDictionary["SwordWave"][Random.Range(0, assetsDictionary["SwordWave"].Length)];
             case SoundAssetsType.hSwordWave:
                 return assetsDictionary["GSwordWave"][Random.Range(0, assetsDictionary["GSwordWave"].Length)];
+            case SoundAssetsType.arrowShoot:
+                return assetsDictionary["ArrowShoot"][Random.Range(0, assetsDictionary["ArrowShoot"].Length)];
             default:
                 Debug.Log("没找到");
                 return null;

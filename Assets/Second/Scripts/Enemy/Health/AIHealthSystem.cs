@@ -12,9 +12,15 @@ namespace UGG.Health
             _animator.Play(hitAnimationName, 0, 0f);
             GameAssets.Instance.PlaySoundEffect(_audioSource, SoundAssetsType.hit);
             transform.rotation = transform.LockOnTarget(attacker,transform,50);
+            GameObjectPoolSystem.Instance.TakeGameObject("Blood", transform.root.position, transform.root.rotation);          
+        }
+        public override void TakeDamager(float damagar, string hitAnimationName)
+        {
+         //   SetAttacker(attacker);
+            _animator.Play(hitAnimationName, 0, 0f);
+            GameAssets.Instance.PlaySoundEffect(_audioSource, SoundAssetsType.hit);
+          //  transform.rotation = transform.LockOnTarget(attacker, transform, 50);
             GameObjectPoolSystem.Instance.TakeGameObject("Blood", transform.root.position, transform.root.rotation);
-
-           
         }
     }
 

@@ -76,6 +76,7 @@ namespace UGG.Move
             PlayerMoveDirection();
             //UpdateRollAnimation();
             Jump();
+            AimMove();
         }
 
         private void LateUpdate()
@@ -125,34 +126,50 @@ namespace UGG.Move
             if ( _inputSystem.playerMovement == Vector2.zero)
                 movementDirection = Vector3.zero;
             
-            if(CanMoveContro()) 
+            if(CanMoveContro() )
             {
-                if (_inputSystem.playerMovement != Vector2.zero)
+                if ( !_inputSystem.playerRAtk)
                 {
-            
-                    targetRotation = Mathf.Atan2(_inputSystem.playerMovement.x, _inputSystem.playerMovement.y) * Mathf.Rad2Deg + characterCamera.localEulerAngles.y;
-            
-                    transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref rotationVelocity, rotationLerpTime);
+                    if (_inputSystem.playerMovement != Vector2.zero)
+                    {
 
-                    var direction = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward;
-            
-                    direction = direction.normalized;
+                        targetRotation = Mathf.Atan2(_inputSystem.playerMovement.x, _inputSystem.playerMovement.y) * Mathf.Rad2Deg + characterCamera.localEulerAngles.y;
 
-                    movementDirection = Vector3.Slerp(movementDirection, ResetMoveDirectionOnSlop(direction),
-                        moveDirctionSlerpTime * Time.deltaTime);
+                        transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref rotationVelocity, rotationLerpTime);
 
+                        var direction = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward;
+
+                        direction = direction.normalized;
+
+                        movementDirection = Vector3.Slerp(movementDirection, ResetMoveDirectionOnSlop(direction),
+                            moveDirctionSlerpTime * Time.deltaTime);
+
+                    
+                    }
+                }               
+                else
+                {
+                    float targetAngle = characterCamera.localEulerAngles.y;
+                    Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 15 * Time.deltaTime);
+                    movementDirection = characterCamera.forward.normalized * _inputSystem.playerMovement.y+characterCamera.right.normalized * _inputSystem.playerMovement.x;
+                    control.Move(movementDirection * Time.deltaTime*5);
                 }
             }
             else 
             {
                 movementDirection = Vector3.zero;
             }
-            
-            control.Move((characterCurrentMoveSpeed * Time.deltaTime)
-                * movementDirection.normalized + Time.deltaTime
-                * new Vector3(0.0f, verticalSpeed, 0.0f));
 
-            
+            control.Move((characterCurrentMoveSpeed * Time.deltaTime)
+                                         * movementDirection.normalized + Time.deltaTime
+                                                  * new Vector3(0.0f, verticalSpeed, 0.0f));
+
+        }
+        public void AimMove()
+        {
+            characterAnimator.SetFloat(horizontalID,_inputSystem.playerMovement.x);
+            characterAnimator.SetFloat(verticalID,_inputSystem.playerMovement.y);
         }
         private void Jump()
         {

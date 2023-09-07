@@ -57,7 +57,7 @@ namespace UGG.Combat
                     if (attackDetectionTargets[i].transform.root.TryGetComponent(out IDamagar damagar))
                     {                       
                         damagar.TakeDamager(0,hitName,transform.root.transform);
-                       // GameObjectPoolSystem.Instance.TakeGameObject("Blood", attackDetectionTargets[i].transform.position, attackDetectionTargets[i].transform.rotation); 
+                        
                     }
                 }
             }

@@ -14,7 +14,7 @@ namespace UGG.Move
         protected CharacterInputSystem _inputSystem;
         
         //MoveDirection(移动向量)
-        protected Vector3 movementDirection;
+        [SerializeField]protected Vector3 movementDirection;
         protected Vector3 verticalDirection;
 
 

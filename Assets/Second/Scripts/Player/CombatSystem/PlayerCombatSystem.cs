@@ -16,6 +16,9 @@ namespace UGG.Combat
     {
         [SerializeField] private Transform currentTarget;
 
+        private Camera characterCamera;
+
+
         //Speed
         [SerializeField, Header("攻击移动速度倍率"), Range(.1f, 10f)]
         private float attackMoveMult;
@@ -34,7 +37,7 @@ namespace UGG.Combat
         Quaternion LockQuaternion= new Quaternion(0, 0, 0, 0);
   
      
-        //other
+        //Roll
         [SerializeField] private float rollCoolTime = 2f;
         private bool isRoll;
         float rollCounter;
@@ -42,10 +45,21 @@ namespace UGG.Combat
         private Action onUpdateInvincibleTime;
         private PlayerHealthSystem healthSystem;
 
+        //Arrow
+        public Transform arrowPoint;
+        CharacterController characterController;
+        Vector3 destination;
+        public LayerMask aimMask;
+        [SerializeField] private Transform debugTransform;
+        [SerializeField,Header("弓箭速度")] private float ArrowSpeed;
         protected override void Awake()
         {
             base.Awake();
             healthSystem = GetComponentInParent<PlayerHealthSystem>();
+            characterCamera = Camera.main;
+
+            characterController = GetComponentInParent<CharacterController>();
+
             onUpdateInvincibleTime += healthSystem.updateInvincibleTime;
         }
         private void lockRotation()
@@ -63,6 +77,7 @@ namespace UGG.Combat
             lockRotation();
          
             UpdateRollAnimation();
+            aimTest();
         }
         private void LateUpdate()
         {
@@ -128,8 +143,41 @@ namespace UGG.Combat
                 }
             }
         }
+        void aimTest()
+        {
+            Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+            Ray ray = characterCamera.ScreenPointToRay(screenCenter);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit,1000,aimMask))
+            {
+                debugTransform.position = hit.point;
+            }
+         
+        }
     
-     
+        void OnBowAttack()
+        {
+            GameAssets.Instance.PlaySoundEffect(_audioSource, SoundAssetsType.arrowShoot);
+            Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+            Ray ray = characterCamera.ScreenPointToRay(screenCenter);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 1000, aimMask))
+            {
+                destination = hit.point;
+            }
+            else
+            {
+                destination = ray.GetPoint(1000);
+            }
+            Vector3 shootDirection = (destination - arrowPoint.position).normalized;
+            GameObject arrow =GameObjectPoolSystem.Instance.TakeGameObject("Arrow", arrowPoint.position, transform.root.rotation);
+            arrow.transform.Rotate(90, 0, 0);
+
+          
+            Rigidbody arrowRigidbody = arrow.GetComponent<Rigidbody>();
+            arrowRigidbody.velocity = shootDirection * ArrowSpeed;
+            Physics.IgnoreCollision(arrow.GetComponent<BoxCollider>(), characterController);
+        }
 
 
         private void ActionMotion()
@@ -197,7 +245,9 @@ namespace UGG.Combat
         /// <param name="allow"></param>
         public void SetAllowAttackInput(bool allow) => allowAttackInput = allow;
         #endregion
-
+        /// <summary>
+        /// 翻滚方法
+        /// </summary>
         private void UpdateRollAnimation()
         {
 
@@ -233,7 +283,8 @@ namespace UGG.Combat
                 {
                     targetRotation -= 180f;
                 }
-              //  transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref rotationVelocity, 0);
+                // transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref rotationVelocity, 0);
+                transform.eulerAngles = Vector3.up * targetRotation;
                 _animator.Play("Roll_F");
 
 
