@@ -5671,7 +5671,15 @@ MonoBehaviour:
   detectionRang: 1
   allowAttackInput: 0
   isGS: 0
+  dissolveController: {fileID: 0}
   rollCoolTime: 2
+  arrowPoint: {fileID: 0}
+  aimMask:
+    serializedVersion: 2
+    m_Bits: 0
+  debugTransform: {fileID: 0}
+  ArrowSpeed: 0
+  weaponPosition: {fileID: 0}
 --- !u!1 &5253175373978901477
 GameObject:
   m_ObjectHideFlags: 0
@@ -7418,6 +7426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82ada223777cee42bcc3e06bda8b50d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementDirection: {x: 0, y: 0, z: 0}
   characterGravity: -20
   characterCurrentMoveSpeed: 0
   groundDetectionRang: 0.54
@@ -8627,7 +8636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1008990551052785875
 Transform:
   m_ObjectHideFlags: 0
@@ -8689,7 +8698,15 @@ MonoBehaviour:
   detectionRang: 4
   allowAttackInput: 0
   isGS: 0
+  dissolveController: {fileID: 0}
   rollCoolTime: 2
+  arrowPoint: {fileID: 0}
+  aimMask:
+    serializedVersion: 2
+    m_Bits: 0
+  debugTransform: {fileID: 0}
+  ArrowSpeed: 0
+  weaponPosition: {fileID: 0}
 --- !u!114 &3961952305625886676
 MonoBehaviour:
   m_ObjectHideFlags: 0

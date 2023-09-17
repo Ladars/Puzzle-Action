@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 871df2547d1f54743a0650deab6776e3, type: 3}
+  m_Name: GameObjectAssetList
+  m_EditorClassIdentifier: 
+  _assetsList:
+  - assetsName: Timer
+    count: 10
+    prefab:
+    - {fileID: 4340437033996089198, guid: 343e8348b5eec764a9b241ee4c020822, type: 3}
+  - assetsName: Blood
+    count: 10
+    prefab:
+    - {fileID: 6226294743631873981, guid: 1010c267b92be52459588c87205c2572, type: 3}
+  - assetsName: Arrow
+    count: 10
+    prefab:
+    - {fileID: 353550155563687216, guid: a7df9cc24e5141547a845c7a5586a84a, type: 3}
+  - assetsName: SwitchWeaponEffect
+    count: 10
+    prefab:
+    - {fileID: 4950989921149299746, guid: f1ced4d7eae3ecc4caf83512da0bc9cf, type: 3}
