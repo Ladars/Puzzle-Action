@@ -24,6 +24,7 @@ public abstract class CombatSkillBase : ScriptableObject
     /// 调用技能
     /// </summary>
     public abstract void InvokeSkill();
+    public abstract void InvokeSkill(float distance,Vector3 direction);
 
 
     protected void UseSkill()
@@ -39,6 +40,7 @@ public abstract class CombatSkillBase : ScriptableObject
         //从对象池拿一个计时器 通过拿出来的计时器获取它计时脚本中的创建计时器函数
         //当传入的的时间递减为0时 内部会执行委托：skillIsDone=true
         GameObjectPoolSystem.Instance.TakeGameObject("Timer").GetComponent<Timer>().CreateTime(skillCDTime, () => skillIsDone = true, false);
+     //   Debug.Log("Skill Reset");
     }
 
     #region 接口
@@ -47,6 +49,11 @@ public abstract class CombatSkillBase : ScriptableObject
     {
         this.animator = _animator;
         this.combat = _combat;
+        this.movement = _movement;
+    }
+    public void InitSkill(Animator _animator,CharacterMovementBase _movement)
+    {
+        this.animator = _animator;
         this.movement = _movement;
     }
 

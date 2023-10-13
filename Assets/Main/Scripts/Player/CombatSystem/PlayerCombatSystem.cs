@@ -189,7 +189,13 @@ namespace UGG.Combat
             {
                 debugTransform.position = hit.point;
             }
-         
+            else
+            {
+                destination = ray.GetPoint(1000);
+            }
+            Vector3 shootDirection = (destination - arrowPoint.position).normalized;
+            Quaternion rotation = Quaternion.LookRotation(shootDirection);
+            arrowPoint.transform.localRotation = rotation;
         }
     
         void OnBowAttack()
@@ -207,15 +213,16 @@ namespace UGG.Combat
                 destination = ray.GetPoint(1000);
             }
             Vector3 shootDirection = (destination - arrowPoint.position).normalized;
-            GameObject arrow =GameObjectPoolSystem.Instance.TakeGameObject("Arrow", arrowPoint.position, transform.root.rotation);
-            arrow.transform.Rotate(90, 0, 0);
 
-          
+            GameObject arrow =GameObjectPoolSystem.Instance.TakeGameObject("Arrow", arrowPoint.position, arrowPoint.rotation);
+
+
+            arrow.transform.Rotate(90, 0, 0);
             Rigidbody arrowRigidbody = arrow.GetComponent<Rigidbody>();
             arrowRigidbody.velocity = shootDirection * ArrowSpeed;
             Physics.IgnoreCollision(arrow.GetComponent<BoxCollider>(), characterController);
         }
-
+     
 
         private void ActionMotion()
         {
@@ -287,7 +294,7 @@ namespace UGG.Combat
         /// </summary>
         private void UpdateRollAnimation()
         {
-
+            
             if (rollCounter > 0)
             {
                 rollCounter -= Time.deltaTime;
@@ -332,6 +339,7 @@ namespace UGG.Combat
             }
             else if (_characterInputSystem.playerRoll && _characterInputSystem.playerMovement == Vector2.zero && isRoll)
             {
+             
                 onUpdateInvincibleTime();
                 rollCounter = rollCoolTime;
                 isRoll = false;
@@ -341,13 +349,13 @@ namespace UGG.Combat
 
         private void JumpAttack()
         {
-            movementController.moveVelocity.y += 20;
+            movementController.moveVelocity.y += 10;
             StartCoroutine(jumpAttackReset());
         }
         IEnumerator jumpAttackReset()
         {
             yield return new WaitForSeconds(0.2f);
-            movementController.moveVelocity.y -=20;
+            movementController.moveVelocity.y -=10;
         }
     }
 }

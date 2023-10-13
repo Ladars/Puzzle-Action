@@ -40,6 +40,7 @@ public class ActivateAttackInput : StateMachineBehaviour
             if (currentAllowAttackTime > 0)
             {
                 currentAllowAttackTime -= Time.deltaTime;
+                Debug.Log(currentAllowAttackTime);
                 if (currentAllowAttackTime <= 0)
                 {
                     combatSystem.SetAllowAttackInput(true);

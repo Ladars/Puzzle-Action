@@ -175,7 +175,7 @@ namespace UGG.Move
         private void Jump()
         {
            
-            if (_inputSystem.playerJump&&isOnGround)
+            if (_inputSystem.playerJump&&isOnGround&&characterAnimator.CheckAnimationTag("Motion"))
             {
                 moveVelocity.y = jumpForce;
                 characterAnimator.SetTrigger("Jump");               

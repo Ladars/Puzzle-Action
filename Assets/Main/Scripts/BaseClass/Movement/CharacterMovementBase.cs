@@ -108,22 +108,7 @@ namespace UGG.Move
                 
             }         
         }
-        //private void jumpListen()
-        //{
-        //    if (_inputSystem.playerJump)
-        //    {
-        //        StartCoroutine(JumpWait());
-        //    }
-          
-        //}
-        //IEnumerator JumpWait()
-        //{
-        //    canOnGround = false;
-        //   // isOnGround = false;
-        //    yield return new WaitForSeconds(0.5f);
-        //    canOnGround = true;
-
-        //}
+     
         private void OnDrawGizmosSelected()
         {
             
@@ -188,8 +173,7 @@ namespace UGG.Move
                 else
                 {
                     verticalDirection = Vector3.zero;
-                }
-        
+                }       
                 control.Move((moveSpeed * Time.deltaTime)
                     * movementDirection.normalized + Time.deltaTime
                     * verticalDirection);

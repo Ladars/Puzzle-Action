@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using BehaviorDesigner.Runtime;
 public static class UnitExpandingFunction
 {
 
@@ -43,6 +43,16 @@ public static class UnitExpandingFunction
         Quaternion newRotation = Quaternion.LookRotation(targetDirection);
         
         return  Quaternion.Lerp(self.rotation,newRotation,lerpTime * Time.deltaTime);
+    }
+    public static Quaternion LockOnTarget(this Transform transform, SharedTransform target, Transform self, float lerpTime)
+    {
+        if (target == null) return self.rotation;
+
+        Vector3 targetDirection = (target.Value.position - self.position).normalized;
+        targetDirection.y = 0;
+        Quaternion newRotation = Quaternion.LookRotation(targetDirection);
+
+        return Quaternion.Lerp(self.rotation, newRotation, lerpTime * Time.deltaTime);
     }
     public static  bool CheckCurrentTagAnimationTimeIsExceed(this Animator animator,string tagName,float time)
     {

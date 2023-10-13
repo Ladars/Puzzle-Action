@@ -123,7 +123,6 @@ public class AICombatSystem : CharacterCombatSystemBase
             if (skills[i].GetSkillID() == id) return skills[i];
             else continue;
         }
-
         return null;
     }
     #endregion

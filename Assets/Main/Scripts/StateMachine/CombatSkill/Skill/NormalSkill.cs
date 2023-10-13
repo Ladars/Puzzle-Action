@@ -22,5 +22,8 @@ public class NormalSkill : CombatSkillBase
         }
     }
 
-   
+    public override void InvokeSkill(float distance,Vector3 direction)
+    {
+        throw new System.NotImplementedException();
+    }
 }
